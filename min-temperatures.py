@@ -14,9 +14,14 @@ lines=sc.textFile("./1800.csv")
 parsedLines=lines.map(parseLine)
 minTemps=parsedLines.filter(lambda x:"TMIN" in x[1])
 stationTemps=minTemps.map(lambda x:(x[0],x[2]))
+results1=minTemps.collect()
 minTemps=stationTemps.reduceByKey(lambda x,y:min(x,y))
 
 results=minTemps.collect()
+
+
+for res in results1:
+	print (res)
 
 for result in results:
 	print (result[0]+"\t{:.2f}F".format(result[1]))
